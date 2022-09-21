@@ -1,9 +1,9 @@
-This project is an in-progress DAW plug-in that will both filter and distort a signal. Three distortion options will be available:
-  -Custom Clip
-    Soft clipping with a customizable gain reduction function.
-  -Soft Clip
-    Soft clipping with fixed gain reduction function. 
-  -Hard Clip
+<p>This project is an in-progress DAW plug-in that will both filter and distort a signal. Three distortion options will be available:</p>
+<p>  -Custom Clip</p>
+<p>    Soft clipping with a customizable gain reduction function.</p>
+<p>  -Soft Clip</p>
+<p>    Soft clipping with fixed gain reduction function.</p> 
+<p>  -Hard Clip</p>
     All samples above threshold level will be crushed.
     
 Currently, both AU and VST3 plug-ins are located in:
