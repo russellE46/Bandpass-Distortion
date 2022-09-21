@@ -10,7 +10,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-SimpleDistortionAudioProcessor::SimpleDistortionAudioProcessor()
+BandpassDistortionAudioProcessor::BandpassDistortionAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -24,17 +24,17 @@ SimpleDistortionAudioProcessor::SimpleDistortionAudioProcessor()
 {
 }
 
-SimpleDistortionAudioProcessor::~SimpleDistortionAudioProcessor()
+BandpassDistortionAudioProcessor::~BandpassDistortionAudioProcessor()
 {
 }
 
 //==============================================================================
-const juce::String SimpleDistortionAudioProcessor::getName() const
+const juce::String BandpassDistortionAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool SimpleDistortionAudioProcessor::acceptsMidi() const
+bool BandpassDistortionAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -43,7 +43,7 @@ bool SimpleDistortionAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool SimpleDistortionAudioProcessor::producesMidi() const
+bool BandpassDistortionAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -52,7 +52,7 @@ bool SimpleDistortionAudioProcessor::producesMidi() const
    #endif
 }
 
-bool SimpleDistortionAudioProcessor::isMidiEffect() const
+bool BandpassDistortionAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -61,50 +61,50 @@ bool SimpleDistortionAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double SimpleDistortionAudioProcessor::getTailLengthSeconds() const
+double BandpassDistortionAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int SimpleDistortionAudioProcessor::getNumPrograms()
+int BandpassDistortionAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int SimpleDistortionAudioProcessor::getCurrentProgram()
+int BandpassDistortionAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void SimpleDistortionAudioProcessor::setCurrentProgram (int index)
+void BandpassDistortionAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const juce::String SimpleDistortionAudioProcessor::getProgramName (int index)
+const juce::String BandpassDistortionAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void SimpleDistortionAudioProcessor::changeProgramName (int index, const juce::String& newName)
+void BandpassDistortionAudioProcessor::changeProgramName (int index, const juce::String& newName)
 {
 }
 
 //==============================================================================
-void SimpleDistortionAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void BandpassDistortionAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 }
 
-void SimpleDistortionAudioProcessor::releaseResources()
+void BandpassDistortionAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool SimpleDistortionAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool BandpassDistortionAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
@@ -129,7 +129,7 @@ bool SimpleDistortionAudioProcessor::isBusesLayoutSupported (const BusesLayout& 
 }
 #endif
 
-void SimpleDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void BandpassDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -154,11 +154,13 @@ void SimpleDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
     {
         auto* channelData = buffer.getWritePointer (channel);
 
-        for (int i = 0; i < buffer.getNumSamples(); i++) {
+        for (int i = 0; i < buffer.getNumSamples(); i++)
+        {
             auto in = channelData[i];
             auto dry = channelData[i];
             
-            if (menuChoice == 1) {
+            if (menuChoice == 1)
+            {
                 //Hard clip
                 if (in > threshold)
                     in = threshold;
@@ -167,13 +169,16 @@ void SimpleDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
                     in = -threshold;
             }
             
-            else {
+            else
+            {
                 //Soft Clip
-                if (in > threshold) {
+                if (in > threshold)
+                {
                     in = (in - threshold) * pow(2, -1 * in) + threshold;
                 }
                 
-                else if (in < -threshold) {
+                else if (in < -threshold)
+                {
                     in = (in + threshold) * pow(2, -1 * in) - threshold;
                 }
                 
@@ -185,25 +190,25 @@ void SimpleDistortionAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
 }
 
 //==============================================================================
-bool SimpleDistortionAudioProcessor::hasEditor() const
+bool BandpassDistortionAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-juce::AudioProcessorEditor* SimpleDistortionAudioProcessor::createEditor()
+juce::AudioProcessorEditor* BandpassDistortionAudioProcessor::createEditor()
 {
-    return new SimpleDistortionAudioProcessorEditor (*this);
+    return new BandpassDistortionAudioProcessorEditor (*this);
 }
 
 //==============================================================================
-void SimpleDistortionAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
+void BandpassDistortionAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void SimpleDistortionAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void BandpassDistortionAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -213,5 +218,5 @@ void SimpleDistortionAudioProcessor::setStateInformation (const void* data, int 
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new SimpleDistortionAudioProcessor();
+    return new BandpassDistortionAudioProcessor();
 }

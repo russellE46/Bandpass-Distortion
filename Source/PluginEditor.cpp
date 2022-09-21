@@ -10,7 +10,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-SimpleDistortionAudioProcessorEditor::SimpleDistortionAudioProcessorEditor (SimpleDistortionAudioProcessor& p)
+BandpassDistortionAudioProcessorEditor::BandpassDistortionAudioProcessorEditor (BandpassDistortionAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
     // Make sure that before the constructor has finished, you've set the
@@ -37,17 +37,18 @@ SimpleDistortionAudioProcessorEditor::SimpleDistortionAudioProcessorEditor (Simp
     addAndMakeVisible(&distChoice);
     distChoice.addItem("Hard Clip", 1);
     distChoice.addItem("Soft Clip", 2);
+    distChoice.addItem("Custom Clip", 69);
     
     distChoice.setSelectedId(1);
     distChoice.addListener(this);
 }
 
-SimpleDistortionAudioProcessorEditor::~SimpleDistortionAudioProcessorEditor()
+BandpassDistortionAudioProcessorEditor::~BandpassDistortionAudioProcessorEditor()
 {
 }
 
 //==============================================================================
-void SimpleDistortionAudioProcessorEditor::paint (juce::Graphics& g)
+void BandpassDistortionAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
@@ -56,7 +57,7 @@ void SimpleDistortionAudioProcessorEditor::paint (juce::Graphics& g)
     g.setFont (15.0f);
 }
 
-void SimpleDistortionAudioProcessorEditor::resized()
+void BandpassDistortionAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
@@ -65,11 +66,11 @@ void SimpleDistortionAudioProcessorEditor::resized()
     mix.setBounds(100, 150, 400, 50);
 }
 
-void SimpleDistortionAudioProcessorEditor::comboBoxChanged(ComboBox *comboBoxThatHasChanged) {
+void BandpassDistortionAudioProcessorEditor::comboBoxChanged(ComboBox *comboBoxThatHasChanged) {
     audioProcessor.menuChoice = comboBoxThatHasChanged->getSelectedId();
 }
 
-void SimpleDistortionAudioProcessorEditor::sliderValueChanged(Slider *sliderThatHasChanged) {
+void BandpassDistortionAudioProcessorEditor::sliderValueChanged(Slider *sliderThatHasChanged) {
     if (sliderThatHasChanged == &mix)
         audioProcessor.mix = sliderThatHasChanged->getValue();
     

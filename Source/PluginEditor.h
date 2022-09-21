@@ -14,11 +14,11 @@
 //==============================================================================
 /**
 */
-class SimpleDistortionAudioProcessorEditor  : public juce::AudioProcessorEditor, private ComboBox::Listener, Slider::Listener
+class BandpassDistortionAudioProcessorEditor  : public juce::AudioProcessorEditor, private ComboBox::Listener, Slider::Listener
 {
 public:
-    SimpleDistortionAudioProcessorEditor (SimpleDistortionAudioProcessor&);
-    ~SimpleDistortionAudioProcessorEditor() override;
+    BandpassDistortionAudioProcessorEditor (BandpassDistortionAudioProcessor&);
+    ~BandpassDistortionAudioProcessorEditor() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
@@ -27,7 +27,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    SimpleDistortionAudioProcessor& audioProcessor;
+    BandpassDistortionAudioProcessor& audioProcessor;
     
     ComboBox distChoice;
     Slider threshold;
@@ -39,5 +39,5 @@ private:
     void sliderValueChanged(Slider * sliderThatHasChanged) override;
     void comboBoxChanged(ComboBox *comboBoxThatHasChanged) override;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleDistortionAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BandpassDistortionAudioProcessorEditor)
 };
