@@ -2,7 +2,8 @@
 
 <JUCERPROJECT id="NCDOLT" name="BandpassDistortion" projectType="audioplug"
               useAppConfig="0" addUsingNamespaceToJuceHeader="1" displaySplashScreen="1"
-              jucerFormatVersion="1">
+              jucerFormatVersion="1" pluginFormats="buildAU,buildVST3" pluginManufacturerCode="BOOP"
+              pluginCode="69" pluginManufacturer="PilgrimPlugins" userNotes="Make sure to only check VST3 and AU for &quot;Plugin Formats&quot;">
   <MAINGROUP id="WzZz4U" name="BandpassDistortion">
     <GROUP id="{1D648B8E-FB25-2963-8C62-CCA2A9572841}" name="Source">
       <FILE id="uYRY1j" name="PluginProcessor.cpp" compile="1" resource="0"
