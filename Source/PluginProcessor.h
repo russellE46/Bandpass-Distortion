@@ -10,15 +10,18 @@
 
 #include <JuceHeader.h>
 #include <cmath>
+
+using namespace juce;
+
 //==============================================================================
 /**
 */
-class SimpleDistortionAudioProcessor  : public juce::AudioProcessor
+class BandpassDistortionAudioProcessor  : public juce::AudioProcessor
 {
 public:
     //==============================================================================
-    SimpleDistortionAudioProcessor();
-    ~SimpleDistortionAudioProcessor() override;
+    BandpassDistortionAudioProcessor();
+    ~BandpassDistortionAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -59,5 +62,5 @@ public:
 
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleDistortionAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BandpassDistortionAudioProcessor)
 };
