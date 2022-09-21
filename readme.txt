@@ -16,7 +16,7 @@ To get started working on this:
   This should generate the project files and libraries that you need to edit the source code, build, and test.
 
 Planned signal flow:
-  Bandpass filter -> Clip -> Bandpass filter -> Blend w/Dry signal
+  Bandpass filter -> Clip -> Bandpass filter -> Blend w/Dry signal -> Gain stage/Gain match
   
 
 
